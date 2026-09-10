@@ -1,6 +1,6 @@
 {
   "$schema":"node_modules/wrangler/config-schema.json",
-  "name":"butter-yellow-bakery",
+  "name":"tbyb",
   "main":"server/worker.mjs",
   "compatibility_date":"2026-09-01",
   "workers_dev":true,
@@ -10,3 +10,4 @@
   "d1_databases":[{"binding":"DB","database_name":"butter-yellow-bakery","database_id":"9cccf1f0-b265-444c-84bc-542965b0c338","migrations_dir":"migrations"}],
   "vars":{"INSTAGRAM_API_VERSION":"v25.0"}
 }
+
