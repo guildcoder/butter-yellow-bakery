@@ -4,9 +4,9 @@ A small-batch order stand and password-protected bakery office. Built from the o
 
 ## Current delivery status
 
-The application runs locally. The private personal repository `guildcoder/butter-yellow-bakery` has been created, GitHub upload authorization is complete, and the Cloudflare D1 database has been created and migrated. Deployment awaits explicit approval to store the generated app secrets in Cloudflare. No real stock is assumed: all categories start paused and every product starts at zero.
+The application is deployed at https://butter-yellow-bakery.w-lukecross.workers.dev with a password-protected office at /#manager. Cloudflare D1 migrations and encrypted Worker secrets are installed. Email delivery still requires a verified Brevo sender, API key, and contact-list connection in the office. All categories start paused and every product starts at zero until the owner enters real availability.
 
-Source must live only under **guildcoder**, never an organization. Intended private repository: `guildcoder/butter-yellow-bakery`. GitHub Pages is not the production host: its published limits exclude sites primarily facilitating commercial transactions. Cloudflare Workers serves both the storefront and API, with D1 for durable private data.
+Source lives under the personal **guildcoder** account, never an organization, at `guildcoder/butter-yellow-bakery`. Cloudflare Workers serves both the storefront and API, with D1 for durable private data. GitHub Pages is not the production host.
 
 ## Run locally
 
@@ -36,7 +36,7 @@ The automated tests exercise actual SQLite statements and the same API handlers 
 5. Run `npm run deploy`. The Worker serves the `public/` directory and `/api/*` on the same origin. No third-party backend URL or credential belongs in frontend configuration.
 6. Sign in to the office, verify Venmo and pickup text, enter stock, and open each category when ready. Real accounts and tokens are not provisioned by the app.
 
-Use D1's backup/Time Travel facilities and apply subsequent migrations rather than replacing the production database. Rotating `SESSION_SECRET` invalidates sessions and also invalidates the encrypted Instagram token, so reconnect Instagram afterward. Rotating only the owner password hash does not invalidate already-issued eight-hour sessions; rotate both to revoke them.
+Use D1's backup/Time Travel facilities and apply subsequent migrations rather than replacing the production database. Rotating `SESSION_SECRET` invalidates sessions and encrypted integration tokens, so reconnect Instagram and Brevo afterward. Rotating only the owner password hash does not invalidate already-issued eight-hour sessions; rotate both to revoke them.
 
 ## Personal GitHub repository
 
@@ -54,8 +54,19 @@ git push -u origin HEAD
 - **Bakes & stock:** edit names, prices, quantities, hide products, add bakes, and independently open or pause sourdough, cookies, and cinnamon rolls. Stock is allocated per product/pack size. A pack of six and a pack of twelve do not share a raw-cookie pool; divide available cookies among pack sizes deliberately. Flights have their own allocated stock.
 - **Orders:** new → paid → ready → collected. Check Venmo yourself before marking paid. Cancelled orders restore stock exactly once and cannot be reopened. No payment is charged by this application.
 - **Customers:** grouped by normalized phone number, private notes, search, and CSV export. Data uses the most recent 2,000 orders in the office; this is a small-bakery limit, not a complete historical reporting system.
+- **Email & updates:** connect a free Brevo account with an active verified sender and a Bakery updates contact list. Customers receive reservation confirmations; only customers who check the optional updates box enter the announcement list. Open Brevo from the office to compose and send announcements with its unsubscribe handling.
 - **Shop & connections:** edit headline, welcome, pickup instructions, payment question, and Venmo username. Artwork is in `public/assets/`; changing images/fonts/layout currently requires source edits.
 - **Giveaways:** one entry per normalized username, comment import, manual comment/like/share evidence, saved eligibility requirements, random winner selection, immutable draw pool, CSV audit. Drawing does not publish or message a winner.
+
+## Email setup and limits
+
+In **Email & updates**, follow the setup instructions to verify the owner's sender address in Brevo, create a contact list, and connect its list ID and API key. The key is encrypted in D1 and never returned to the browser. The production owner password is in the Git-excluded `.local/live-owner-password.txt`; the local preview uses a different password.
+
+Brevo's free plan currently allows 300 emails per day, shared between announcements and confirmations, with Brevo branding. Leave capacity for order confirmations. A Gmail sender cannot authenticate its own domain; Brevo currently substitutes a provider-owned sending domain as a temporary accommodation. Replies go to the owner's verified email. A custom authenticated domain may be needed later. See [free-plan limits](https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan) and [sender requirements](https://help.brevo.com/hc/en-us/articles/14925263522578-Comply-with-Gmail-Yahoo-and-Microsoft-s-requirements-for-email-senders).
+
+Orders, inventory deductions, and confirmation queue records commit together. Email failure cannot roll back a saved order. Queued messages and opted-in contacts are processed every two minutes after connection. Confirmation retries retain their payload and stop before Brevo's 15-minute duplicate-protection window expires. Failed/uncertain messages require reviewing the provider log before manually resending. An accepted status means Brevo accepted the request, not that the message reached an inbox. Email tests mock Brevo; live delivery has not yet been verified.
+
+Announcements are composed and sent in Brevo, linked from the owner office. Signup history is not a current subscriber list: Brevo maintains unsubscribe and suppression state. The app does not automatically subscribe ordinary customers or override their suppression flags.
 
 ## Instagram connection and limits
 
