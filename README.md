@@ -4,7 +4,7 @@ A small-batch order stand and password-protected bakery office. Built from the o
 
 ## Current delivery status
 
-The application runs locally. The private personal repository `guildcoder/butter-yellow-bakery` has been created, and the Cloudflare D1 database has been created and migrated. Source upload awaits GitHub device authorization; deployment awaits explicit approval to store the generated app secrets in Cloudflare. No real stock is assumed: all categories start paused and every product starts at zero.
+The application runs locally. The private personal repository `guildcoder/butter-yellow-bakery` has been created, GitHub upload authorization is complete, and the Cloudflare D1 database has been created and migrated. Deployment awaits explicit approval to store the generated app secrets in Cloudflare. No real stock is assumed: all categories start paused and every product starts at zero.
 
 Source must live only under **guildcoder**, never an organization. Intended private repository: `guildcoder/butter-yellow-bakery`. GitHub Pages is not the production host: its published limits exclude sites primarily facilitating commercial transactions. Cloudflare Workers serves both the storefront and API, with D1 for durable private data.
 
