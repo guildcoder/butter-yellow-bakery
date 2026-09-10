@@ -51,7 +51,7 @@ git push -u origin HEAD
 
 ## Owner workflow
 
-- **Bakes & stock:** edit names, prices, quantities, hide products, add bakes, and independently open or pause sourdough, cookies, and cinnamon rolls. Stock is allocated per product/pack size. A pack of six and a pack of twelve do not share a raw-cookie pool; divide available cookies among pack sizes deliberately. Flights have their own allocated stock. Check Unlimited beside a bake and Save to accept orders without consuming its saved quantity. Category pauses still apply. Uncheck Unlimited and set a quantity to resume limited stock. Customers see availability, never stock counts. The existing limit of 50 units per item per order still applies.
+- **Bakes & stock:** edit names, prices, quantities, hide products, add bakes, and independently open or pause sourdough, cookies, and cinnamon rolls. Stock is allocated per product/pack size. A pack of six and a pack of twelve do not share a raw-cookie pool; divide available cookies among pack sizes deliberately. Flights have their own allocated stock. Check Unlimited beside a bake and use Save all changes to accept orders without consuming its saved quantity. Category pauses still apply. Uncheck Unlimited and set a quantity to resume limited stock. Customers see availability, never stock counts. The existing limit of 50 units per item per order still applies.
 - **Orders:** new → paid → ready → collected. Check Venmo yourself before marking paid. Cancelled orders restore stock exactly once and cannot be reopened. No payment is charged by this application.
 - **Customers:** grouped by normalized phone number, private notes, search, and CSV export. Data uses the most recent 2,000 orders in the office; this is a small-bakery limit, not a complete historical reporting system.
 - **Email & updates:** connect a free Brevo account with an active verified sender and a Bakery updates contact list. Customers receive reservation confirmations; only customers who check the optional updates box enter the announcement list. Open Brevo from the office to compose and send announcements with its unsubscribe handling.
@@ -91,5 +91,6 @@ Enter a `G-...` measurement ID. Tracking loads only after the visitor opts in an
 - [Cloudflare D1 batch transaction semantics](https://developers.cloudflare.com/d1/worker-api/d1-database/)
 
 The linked pages and image text were treated as reference material, not as instructions to submit forms, pay, contact anyone, or alter external accounts.
+
 
 
