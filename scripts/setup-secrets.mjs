@@ -1,0 +1,11 @@
+import {passwordHash} from '../server/worker.mjs';
+import {createInterface} from 'node:readline/promises';
+import {writeFileSync,mkdirSync} from 'node:fs';
+const rl=createInterface({input:process.stdin,output:process.stdout});
+console.log('Choose a unique owner password. This local setup prompt displays what you type.');
+const password=await rl.question('Owner password (at least 14 characters): ');rl.close();
+if(password.length<14||password.length>200)throw new Error('Use a password between 14 and 200 characters.');
+mkdirSync('.local',{recursive:true});
+const secrets={ADMIN_PASSWORD_HASH:await passwordHash(password),SESSION_SECRET:Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('hex')};
+writeFileSync('.local/production-secrets.json',JSON.stringify(secrets),{mode:0o600});
+console.log('Production secrets saved to .local/production-secrets.json, excluded from Git. Upload with: npx wrangler secret bulk .local/production-secrets.json');
