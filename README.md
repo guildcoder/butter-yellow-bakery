@@ -4,7 +4,7 @@ A small-batch order stand and password-protected bakery office. Built from the o
 
 ## Current delivery status
 
-The application is deployed at https://butter-yellow-bakery.w-lukecross.workers.dev with a password-protected office at /#manager. Cloudflare D1 migrations and encrypted Worker secrets are installed. Email delivery still requires a verified Brevo sender, API key, and contact-list connection in the office. All categories start paused and every product starts at zero until the owner enters real availability.
+The application is deployed at https://butter-yellow-bakery.bakery-stand.workers.dev with a password-protected office at /#manager. Cloudflare D1 migrations and encrypted Worker secrets are installed. Email delivery still requires a verified Brevo sender, API key, and contact-list connection in the office. All categories start paused and every product starts at zero until the owner enters real availability.
 
 Source lives under the personal **guildcoder** account, never an organization, at `guildcoder/butter-yellow-bakery`. Cloudflare Workers serves both the storefront and API, with D1 for durable private data. GitHub Pages is not the production host.
 
@@ -91,3 +91,4 @@ Enter a `G-...` measurement ID. Tracking loads only after the visitor opts in an
 - [Cloudflare D1 batch transaction semantics](https://developers.cloudflare.com/d1/worker-api/d1-database/)
 
 The linked pages and image text were treated as reference material, not as instructions to submit forms, pay, contact anyone, or alter external accounts.
+
